@@ -1,0 +1,31 @@
+name: 打包应用并上传Github Pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 迁出代码
+      uses: actions/checkout@main # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+      with:
+        persist-credentials: false
+
+    - name: 安装node.js
+      uses: actions/setup-node@v1
+      with: 
+        node-version: 12.13.1
+
+    - name: 安装依赖
+      run: npm install
+
+    - name: 打包
+      run: npm run build
+        
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: build
