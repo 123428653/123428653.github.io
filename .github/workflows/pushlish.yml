@@ -28,5 +28,4 @@ jobs:
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: main
-        FOLDER: build
-        SOURCE: dist
+        FOLDER: dist
